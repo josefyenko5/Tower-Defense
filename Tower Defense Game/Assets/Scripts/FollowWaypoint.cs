@@ -11,7 +11,7 @@ public class FollowWaypoint : MonoBehaviour {
         nextWaypoint = Waypoints.GetNextWaypoint();
     }
 
-    private void Update () {
+    private void FixedUpdate () {
         Utility.Distance(transform.position, nextWaypoint.position, enemySettingsSO.stoppingDistance, () => {
             nextWaypoint = Waypoints.GetNextWaypoint();
         }, () => {
