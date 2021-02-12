@@ -13400,8 +13400,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 446906077}
-  stoppingDistance: 0.5
-  speed: 7
+  enemySettingsSO: {fileID: 11400000, guid: c25408a1e8a55094dade3696cdf7faaf, type: 2}
 --- !u!1001 &1647267108
 PrefabInstance:
   m_ObjectHideFlags: 0
