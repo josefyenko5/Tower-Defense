@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 286f961906497574e91319d6ffabf390, type: 3}
   m_Name: EnemySettings
   m_EditorClassIdentifier: 
-  speed: 7
+  speed: 25
   stoppingDistance: 0.7
