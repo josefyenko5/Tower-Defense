@@ -16,6 +16,12 @@ public class FollowWaypoint : MonoBehaviour {
             nextWaypoint = Waypoints.GetNextWaypoint();
         }, () => {
             rb.position = Vector3.MoveTowards(transform.position, nextWaypoint.position, enemySettingsSO.speed * Time.deltaTime);
+            var targetPosition = Vector3.MoveTowards(transform.position, nextWaypoint.position, enemySettingsSO.speed * Time.deltaTime);
+            rb.position = targetPosition;
+            var dir = (nextWaypoint.position - transform.position).normalized;
+            var targetRotation = Quaternion.LookRotation(dir);
+            var smoothRotation = Quaternion.Slerp(rb.rotation, targetRotation, enemySettingsSO.angularSmoothing * Time.deltaTime);
+            rb.rotation = smoothRotation;
         });
     }
 
