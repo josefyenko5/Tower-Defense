@@ -4,7 +4,6 @@ using UnityEngine;
 public class Waypoints : MonoBehaviour {
     
     private Transform[] waypoints;
-    private int waypointIndex;
 
     #region Singleton
     public static Waypoints i;
@@ -22,17 +21,15 @@ public class Waypoints : MonoBehaviour {
         Singleton();
         waypoints = transform.Cast<Transform>().ToArray();
     }
-
-    private void Start () {
-        waypointIndex = 0;
-    }
     
-    public static Transform GetNextWaypoint () {
+    public static Transform GetNextWaypoint (int waypointIndex) {
         var waypoints = i.waypoints;
-        var waypointIndex = i.waypointIndex;
         var currentWaypoint = waypoints[waypointIndex].transform;
-        i.waypointIndex = (i.waypointIndex + 1) % waypoints.Length;
         return currentWaypoint;
+    }
+
+    public static int WaypointLength () {
+        return i.waypoints.Length;
     }
 
 }

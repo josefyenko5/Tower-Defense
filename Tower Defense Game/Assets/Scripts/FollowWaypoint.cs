@@ -5,15 +5,17 @@ public class FollowWaypoint : MonoBehaviour {
 
     [SerializeField] private Rigidbody rb;
     [SerializeField] private EnemySettingsSO enemySettingsSO;
+    private int waypointIndex = 0;
     private Transform nextWaypoint;
 
     private void Start () {
-        nextWaypoint = Waypoints.GetNextWaypoint();
+        nextWaypoint = Waypoints.GetNextWaypoint(waypointIndex);
     }
 
     private void FixedUpdate () {
         Utility.Distance(transform.position, nextWaypoint.position, enemySettingsSO.stoppingDistance, () => {
-            nextWaypoint = Waypoints.GetNextWaypoint();
+            waypointIndex = (waypointIndex + 1) % Waypoints.WaypointLength();
+            nextWaypoint = Waypoints.GetNextWaypoint(waypointIndex);
         }, () => {
             rb.position = Vector3.MoveTowards(transform.position, nextWaypoint.position, enemySettingsSO.speed * Time.deltaTime);
             var targetPosition = Vector3.MoveTowards(transform.position, nextWaypoint.position, enemySettingsSO.speed * Time.deltaTime);
