@@ -107,6 +107,28 @@ namespace YikonUtility {
                 onDistanceNear?.Invoke();
             }
         }
+
+        public static Transform FindClosestTarget (Transform currentTransform, Transform[] transforms) {
+            var nearestTransform = transforms[0];
+            foreach (var transform in transforms) {
+                Utility.DistanceNear(currentTransform.position, transform.position, Vector3.Distance(currentTransform.position, nearestTransform.position), () => {
+                    nearestTransform = transform;
+                });
+            }
+
+            return nearestTransform;
+        }
+        
+        public static Transform FindClosestTarget (Transform currentTransform, Collider[] colliders) {
+            var nearestCollider = colliders[0].transform;
+            foreach (var collider in colliders) {
+                Utility.DistanceNear(currentTransform.position, collider.transform.position, Vector3.Distance(currentTransform.position, nearestCollider.transform.position), () => {
+                    nearestCollider = collider.transform;
+                });
+            }
+
+            return nearestCollider.transform;
+        }
     }
 }
 

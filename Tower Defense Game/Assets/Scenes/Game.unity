@@ -18028,6 +18028,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1101255766}
     m_Modifications:
+    - target: {fileID: 1073654454, guid: 39e1606b964f40449977cc07972c6b75, type: 3}
+      propertyPath: radius
+      value: 19.95
+      objectReference: {fileID: 0}
+    - target: {fileID: 1073654454, guid: 39e1606b964f40449977cc07972c6b75, type: 3}
+      propertyPath: enemyMask.m_Bits
+      value: 256
+      objectReference: {fileID: 0}
     - target: {fileID: 3907772654343342804, guid: 39e1606b964f40449977cc07972c6b75, type: 3}
       propertyPath: m_RootOrder
       value: 0
