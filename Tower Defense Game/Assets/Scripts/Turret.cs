@@ -1,32 +1,37 @@
 ﻿using UnityEngine;
-using System.Linq;
 using YikonUtility;
 
 public class Turret : MonoBehaviour {
 
     [SerializeField] private Transform head;
     [SerializeField] private Transform rangePoint;
-    [SerializeField] private float radius;
-    [SerializeField] private float angularSmoothing;
-    [SerializeField] private LayerMask enemyMask;
+    [SerializeField] private TurretSettingsSO turretSettingsSO;
+
+    private Transform nearest;
 
     private void FixedUpdate () {
         HandleFindingTarget();
     }
 
     private void HandleFindingTarget () {
-        var enemyInRange = Physics.OverlapSphere(rangePoint.position, radius, enemyMask);
+        HandleRotation();
+        var enemyInRange = Physics.OverlapSphere(rangePoint.position, turretSettingsSO.radius, turretSettingsSO.enemyMask);
         if (enemyInRange.Length <= 0) return;
-        var nearest = Utility.FindClosestTarget(transform, enemyInRange);
-        var dir = (nearest.position - transform.position).normalized;
-        var targetRotation = Quaternion.LookRotation(dir);
-        var smoothRotation = Quaternion.Slerp(transform.rotation, targetRotation, angularSmoothing * Time.deltaTime);
-        transform.rotation = smoothRotation;
+        nearest = Utility.FindClosestTarget(transform, enemyInRange);
+    }
+
+    private void HandleRotation () {
+        if (nearest == null) return;
+        var targetRotation = Quaternion.LookRotation(nearest.position);
+        var smoothRotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime*turretSettingsSO.angularSmoothing);
+        var eulerAngles = smoothRotation.eulerAngles;
+        transform.rotation = Quaternion.Euler(Vector3.up * eulerAngles.y);
     }
 
     private void OnDrawGizmosSelected () {
+        if (rangePoint == null) return;
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(rangePoint.position, radius);
+        Gizmos.DrawWireSphere(rangePoint.position, turretSettingsSO.radius);
     }
 
 }

@@ -159,11 +159,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   head: {fileID: 655846944890680466}
   rangePoint: {fileID: 1652676797}
-  radius: 4
+  radius: 19.95
   angularSmoothing: 5
   enemyMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
 --- !u!1 &5289469506684775727
 GameObject:
   m_ObjectHideFlags: 0
