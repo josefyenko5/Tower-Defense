@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 286f961906497574e91319d6ffabf390, type: 3}
-  m_Name: EnemySettings
+  m_Name: Mutant
   m_EditorClassIdentifier: 
-  speed: 7
+  speed: 5
   angularSmoothing: 5
   stoppingDistance: 0.7
