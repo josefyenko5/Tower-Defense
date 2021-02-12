@@ -8,9 +8,11 @@ public class Turret : MonoBehaviour {
     [SerializeField] private TurretSettingsSO turretSettingsSO;
 
     private Transform nearest;
+    private float nextTimeToAttack;
 
     private void FixedUpdate () {
         HandleFindingTarget();
+        HandleAttacking();
     }
 
     private void HandleFindingTarget () {
@@ -22,10 +24,20 @@ public class Turret : MonoBehaviour {
 
     private void HandleRotation () {
         if (nearest == null) return;
-        var targetRotation = Quaternion.LookRotation(nearest.position);
+        var dir = (nearest.position - transform.position).normalized;
+        var targetRotation = Quaternion.LookRotation(dir);
         var smoothRotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime*turretSettingsSO.angularSmoothing);
         var eulerAngles = smoothRotation.eulerAngles;
         transform.rotation = Quaternion.Euler(Vector3.up * eulerAngles.y);
+    }
+
+    private void HandleAttacking () {
+        if (nearest == null) return;
+        if (Time.time > nextTimeToAttack) {
+            nextTimeToAttack = Time.time + turretSettingsSO.fireRate;
+            var healthSystem = nearest.Find("HealthSystem").GetComponent<HealthSystem>();
+            healthSystem.TakeDamage(turretSettingsSO.damage);
+        }
     }
 
     private void OnDrawGizmosSelected () {
